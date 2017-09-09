@@ -1,0 +1,7 @@
+<% 
+fulldate = function(year, day){
+    var year = this.year - 1;
+    var dat = new Date('12/31/'+year);
+    dat.setDate(dat.getDate() + day);
+    return dat;    
+})%>

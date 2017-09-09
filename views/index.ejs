@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Flux Data Query System</title>
+    </head>
+    <body>
+        <div style:"margin: 0px auto">
+            <h1>What would you like to do?</h1>
+            <button><a href="data">Query Data</a></button>
+            <button>Range Data</button>
+            <p> 
+                <form action="/data" method="GET">
+                    <input type="text" name="search[year]" placeholder="Year">
+                    <input type="text" name="search[month]" placeholder="Month">
+                    <input type="text" name="search[day]" placeholder="day">
+                    <input type="submit" value="Search">
+                </form>
+            </p>
+            <p>
+                <form action="/data" method="GET">
+                    <input type="text" name="que[begin]" placeholder="begin">
+                    <input type="text" name="que[end]" placeholder="end">
+                    <input type="submit" value="Query">
+                </form>
+            </p>
+        </div>
+    </body>
+</html>

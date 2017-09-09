@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Wind"
+    },
+    {
+        "name":"Air"
+    },
+    {
+        "name": "Soil"
+    },
+    {
+        "name": "H2O"
+    }
+]

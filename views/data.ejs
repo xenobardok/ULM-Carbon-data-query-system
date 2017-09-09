@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h1>Index Page</h1>
+    
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Day</th>
+    <th>Time</th>
+    <th>Full Date</th>
+  </tr>
+    <% data.forEach(function(data){ %>
+        <tr>
+            <td><%= data.year %></td>
+            <td><%= data.day %></td>
+            <td><%= data.time %></td>
+            <td><%- fulldate(data.year, data.day) %></td>
+        </tr>
+    <% })%>
+  
+</table>
+
+</body>
+</html>
+
+
+
+
