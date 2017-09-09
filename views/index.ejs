@@ -1,10 +1,20 @@
-<html>
-    <head>
-        <title>Flux Data Query System</title>
-    </head>
-    <body>
-        <div style:"margin: 0px auto">
-            <h1>What would you like to do?</h1>
+<% include ./partials/header.ejs %>
+        <div class="container">
+            <div class="">
+                <div class="Absolute-Center">
+                    <div class="box">
+                            <img src="./assets/img/ulm_logo.png" alt="Logo of the University of Louisiana at Monroe">
+                            <h3 class="title">Carbon Tower Data Query System</h3>
+                            <a href="./query"><button type="button" class="btn">Query</button></a><br>
+                            <a href="./range"><button type="button" class="btn">Range</button></a>
+                    </div>
+                </div>
+                                
+            </div>
+
+
+
+            <!-- <h1>What would you like to do?</h1>
             <button><a href="data">Query Data</a></button>
             <button>Range Data</button>
             <p> 
@@ -21,7 +31,5 @@
                     <input type="text" name="que[end]" placeholder="end">
                     <input type="submit" value="Query">
                 </form>
-            </p>
-        </div>
-    </body>
-</html>
+            </p> -->
+<% include ./partials/footer.ejs %>

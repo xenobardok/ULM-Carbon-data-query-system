@@ -9,6 +9,7 @@ var express = require('express'),
 var port = 3000 || process.env.PORT,
     url = 'mongodb://test:test@ds125113.mlab.com:25113/fluxdatabase';
 
+app.use('/assets', express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
 mongoose.connect(url, {useMongoClient: true});
 app.locals.fulldate = function(year, day) {
@@ -28,6 +29,14 @@ app.get('/', function(req, res){
     //     }
     // });
 })
+
+app.get('/query', function(req,res){
+    res.render('query');
+});
+
+app.get('/range', function(req,res){
+    res.render('range');
+});
 
 app.get('/data', function(req,res){
     if(req.query.search){
@@ -53,6 +62,11 @@ app.get('/data', function(req,res){
                 res.render('data', {data:data});
             }
         })
+    }
+    else if(req.query.date){
+        let date = req.query.date;
+        var year = date.slice(-4);
+        console.log(year);
     }
     else {
     Flux.find({}, function(err, data){

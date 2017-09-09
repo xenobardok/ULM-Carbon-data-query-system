@@ -1,0 +1,73 @@
+body{
+    background: 
+        linear-gradient(
+            rgba(189, 148, 90, 0.56),
+            rgba(128, 0, 43, 0.53)
+        ), 
+        url("./img/background.jpg");
+    background-size: cover;
+    background-position: center
+}
+::selection {
+    background: #800029;; /* WebKit/Blink Browsers */
+  }
+::-moz-selection {
+background: #800029;; /* Gecko Browsers */
+}
+.Center-Container {
+    position: relative;
+  }
+  
+  .Absolute-Center {
+    height: 600px;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+  }
+
+  .box{
+    text-align: center;
+    background-color: rgba(128, 0, 43, 0.53);
+    border-radius: 5%;
+    color: white;
+    padding: 50px;
+    width: 600px;
+    min-height: 300px;
+    margin: 0px auto;
+  }
+  .title{
+      padding: 5px;
+  }
+
+  button{
+      margin: 10px;
+      cursor: pointer;
+  }
+
+  .box img{
+      width: 200px;
+      height: 200px;
+  }
+
+  .btn{
+      background-color: #bd955a;
+      border-color: #bd955a;
+  }
+
+  .btn:hover, .btn:active{
+      background-color: #800029;
+      border-color: #bd955a;
+  }
+
+  .btn:focus{
+      box-shadow: 0 0 0 3px rgba(128, 0, 43, 0.53);
+      background-color: #800029;
+  }
+
+  .picker__date-display{
+      background-color: #800029;
+  }
+
+  .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+      background-color: #800029;
+  }
