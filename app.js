@@ -23,12 +23,6 @@ var Flux = mongoose.model('fluxdata', fluxSchema);
 
 app.get('/', function(req, res){
     res.render('index');
-
-    // Flux.collection.insertMany(file, function(err,r){
-    //     if(err){
-    //         console.log(err);
-    //     }
-    // });
 })
 
 app.get('/query', function(req,res){
@@ -40,31 +34,7 @@ app.get('/range', function(req,res){
 });
 
 app.get('/data', function(req,res){
-    if(req.query.search){
-        let q = req.query.search;
-        var d = daysCalc(q.year, q.month, q.day);
-
-
-        Flux.find({year: q.year, day: d}, function(err, data){
-        if(err){
-            console.log(err);
-        } else {
-            res.render('data', {data: data});
-        }
-    })}
-    else if(req.query.que){
-        let q = req.query.que;        
-        var d1 = q.begin;
-        var d2 = q.end;
-        Flux.find({day: {$gte:d1, $lt: d2}}, function(err, data){
-            if(err){
-                console.log(err);
-            } else {
-                res.render('data', {data:data});
-            }
-        })
-    }
-    else if(req.query.date){
+    if(req.query.date){
         let date = req.query.date;
         let year = date.slice(-4);
         var d = daysCalc(year, date);
@@ -109,11 +79,6 @@ app.get('/data', function(req,res){
             }
         }).sort({year:1, day:1});
     }
-
-
-
-
-
     }
     else {
     Flux.find({}, function(err, data){
@@ -124,6 +89,10 @@ app.get('/data', function(req,res){
         }
     })};
 
+});
+
+app.get('*', function(req,res){
+    res.send('404 error!');
 });
 
 app.listen(port, function(err){
