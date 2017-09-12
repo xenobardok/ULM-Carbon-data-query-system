@@ -1,10 +1,15 @@
 <% include ./partials/header.ejs %>
-
+<body class="main_body">
 <div class="container">
         <div class="">
             <div class="Absolute-Center">
                 <div class="box">
-                        <h2>Please select your date</h2>
+                        <h3>Please select your range</h3>
+                        <form action="/data" method="GET">
+                            <input type="text" class="datepicker" name="range[begin]" placeholder="Begin Date">
+                            <input type="text" class="datepicker" name="range[end]" placeholder="End Date">
+                            <input type="submit" value="Query" class="btn">
+                        </form>
                 </div>
             </div>
                             

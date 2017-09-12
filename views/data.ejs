@@ -1,48 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
-</head>
-<body>
-<h1>Index Page</h1>
-    
-<table>
+<% include ./partials/header.ejs %>
+<body class="data_body">
+<table class="table">
   <tr>
-    <th>Year</th>
-    <th>Day</th>
+    <th>Date</th>
     <th>Time</th>
-    <th>Full Date</th>
+    <th>Fc_wpl</th>
+    <th>LE_wpl</th>
+    <th>CO2_stdev</th>
+    <th>H2O_stdev</th>
+    <th>CO2_mean</th>
+    <th>H2O_mean</th>
+    <th>PAR_Den_Avg</th>
+    <th>PAR_Tot_Tot</th>
+    <th>amb_tmpr_Avg</th>
+    <th>RH_WXT</th>
+    <th>LWS_mV_Avg</th>
   </tr>
     <% data.forEach(function(data){ %>
         <tr>
-            <td><%= data.year %></td>
-            <td><%= data.day %></td>
-            <td><%= data.time %></td>
+            
             <td><%- fulldate(data.year, data.day) %></td>
+            <td><%= data.time %></td>
+            <td><%= data.Fc_wpl %></td>
+            <td><%= data.LE_wpl %></td>
+            <td><%= data.CO2_stdev %></td>
+            <td><%= data.H2O_stdev %></td>
+            <td><%= data.CO2_mean %></td>
+            <td><%= data.H2O_mean %></td>
+            <td><%= data.PAR_Den_Avg %></td>
+            <td><%= data.PAR_Tot_Tot %></td>
+            <td><%= data.amb_tmpr_Avg %></td>
+            <td><%= data.RH_WXT %></td>
+            <td><%= data.LWS_mV_Avg %></td>
         </tr>
     <% })%>
   
 </table>
-
-</body>
-</html>
-
+<% include ./partials/footer.ejs %>
 
 
 

@@ -1,4 +1,4 @@
-body{
+.main_body{
     background: 
         linear-gradient(
             rgba(189, 148, 90, 0.56),
@@ -6,7 +6,21 @@ body{
         ), 
         url("./img/background.jpg");
     background-size: cover;
-    background-position: center
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.data_body{
+    background: 
+        linear-gradient(
+            rgba(189, 148, 90, 0.56),
+            rgba(128, 0, 43, 0.53)
+        ), 
+        url("./img/ulm_logo.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
 ::selection {
     background: #800029;; /* WebKit/Blink Browsers */
@@ -71,3 +85,21 @@ background: #800029;; /* Gecko Browsers */
   .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
       background-color: #800029;
   }
+
+.table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.62);
+}
+
+.table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.table tr:nth-child(even) {
+    background-color: rgba(128, 0, 45, 0.79);
+    color: white;
+}
