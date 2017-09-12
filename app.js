@@ -54,7 +54,7 @@ app.get('/data', function(req,res){
         var y2 = q.end.slice(-4);
         var d1 = daysCalc(y1, q.begin);
         var d2 = daysCalc(y2, q.end);
-        console.log("year1:"+y1 +" year2:"+ y2+ " days1"+ d1+ " days2:"+ d2);
+        // console.log("year1:"+y1 +" year2:"+ y2+ " days1"+ d1+ " days2:"+ d2);
 
         if(y1===y2){
             Flux.find({year:{$gte:y1, $lt: y2+1}, day: {$gte:d1, $lt: d2+1}}, function(err, data){
@@ -108,6 +108,6 @@ function daysCalc(year, fuldate){
     var secondDate = new Date(fuldate);
 
     var diffDays = Math.ceil((secondDate - firstDate)/oneDay);
-    console.log(diffDays);
+    // console.log(diffDays);
     return diffDays;
 }
