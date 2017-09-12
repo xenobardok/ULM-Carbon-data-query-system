@@ -1,10 +1,8 @@
 var express = require('express'),
     mongoose = require('mongoose'),
     app = express(),
-    data = require('./data'),
     MongoClient = require('mongodb').MongoClient,
-    fluxSchema = require('./schema/fluxSchema'),
-    file = require('./convertcsv.json');
+    fluxSchema = require('./schema/fluxSchema');
 
 var port = 3000 || process.env.PORT,
     url = 'mongodb://test:test@ds125113.mlab.com:25113/fluxdatabase';
