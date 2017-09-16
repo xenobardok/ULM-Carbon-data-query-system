@@ -4,7 +4,8 @@ var express = require('express'),
     MongoClient = require('mongodb').MongoClient,
     fluxSchema = require('./schema/fluxSchema');
 
-var port = 3000 || process.env.PORT,
+// var port = 3000 || process.env.PORT,
+   var port = 80,
     url = 'mongodb://test:test@ds125113.mlab.com:25113/fluxdatabase';
 
 app.use('/assets', express.static(__dirname + '/public'));
