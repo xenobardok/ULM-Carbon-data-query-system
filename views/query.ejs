@@ -6,8 +6,10 @@
                 <div class="box">
                         <h3>Please select your date</h3>
                         <form action="/data" method="GET">
-                            <input type="text" class="datepicker" name="date" placeholder="Choose a date">
+                            <input type="text" class="datepicker" name="date[date]" placeholder="Choose a date">
+                            <p><% include ./partials/variable.ejs%></p><br>
                             <input type="submit" value="Search" class="btn">
+                            
                         </form>
 
                 </div>

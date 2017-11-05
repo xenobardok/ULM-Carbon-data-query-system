@@ -103,3 +103,22 @@ background: #800029;; /* Gecko Browsers */
     background-color: rgba(128, 0, 45, 0.79);
     color: white;
 }
+
+#dropdown1 p{
+    padding-left: 10px;
+    width: 100%;
+}
+
+.variable{
+    width: 100%;
+}
+
+label{
+    width: 100%;
+    color: rgba(0,0,0,0.87);
+}
+
+[type="checkbox"]:checked+label:before{
+    border-right: 2px solid #802b3d;
+    border-bottom: 2px solid #802b3d;
+}

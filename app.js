@@ -34,15 +34,15 @@ app.get('/range', function(req,res){
 
 app.get('/data', function(req,res){
     if(req.query.date){
-        let date = req.query.date;
+        let date = req.query.date.date;
         let year = date.slice(-4);
         var d = daysCalc(year, date);
-
+        console.log(req.query.date.varChoose);
         Flux.find({year: year, day: d}, function(err, data){
             if(err){
                 console.log(err);
             } else {
-                res.render('data', {data: data});
+                res.render('data', {data: data, variable:req.query.date.varChoose});
             }
         })
     }
