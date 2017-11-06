@@ -1,8 +1,20 @@
 var express = require('express'),
-    mongoose = require('mongoose'),
     app = express(),
-    MongoClient = require('mongodb').MongoClient,
-    fluxSchema = require('./schema/fluxSchema');
+    mysql = require('mysql');
+
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'fluxdatabase'
+});
+
+db.connect(function(err){
+    if(err){
+        throw err;
+    }
+    console.log('MySql Connected!!');
+})
 
 // var port = 3000 || process.env.PORT,
    var port = 80,
@@ -10,7 +22,6 @@ var express = require('express'),
 
 app.use('/assets', express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
-mongoose.connect(url, {useMongoClient: true});
 app.locals.fulldate = function(year, day) {
     var year = year - 1;
     var dat = new Date('12/31/'+year);
@@ -18,7 +29,6 @@ app.locals.fulldate = function(year, day) {
 
     return dat.toLocaleDateString("en-US");
 }
-var Flux = mongoose.model('fluxdata', fluxSchema);
 
 app.get('/', function(req, res){
     res.render('index');
@@ -38,10 +48,19 @@ app.get('/data', function(req,res){
         let year = date.slice(-4);
         var d = daysCalc(year, date);
         console.log(req.query.date.varChoose);
-        Flux.find({year: year, day: d}, function(err, data){
+        // Flux.find({year: year, day: d}, function(err, data){
+        //     if(err){
+        //         console.log(err);
+        //     } else {
+        //         res.render('data', {data: data, variable:req.query.date.varChoose});
+        //     }
+        // })
+        let sql = "SELECT * FROM fluxdata WHERE day = ?";
+        db.query(sql, d , function(err, data){
             if(err){
                 console.log(err);
             } else {
+                console.log("reached!");
                 res.render('data', {data: data, variable:req.query.date.varChoose});
             }
         })
