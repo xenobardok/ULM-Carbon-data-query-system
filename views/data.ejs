@@ -4,43 +4,31 @@
   <tr>
     <th>Date</th>
     <th>Time</th>
-    <% variable.forEach(function(name){%>
-        <th><%= name%></th>
-    <%})%>
 
-    <!-- <th>Fc_wpl</th>
-    <th>LE_wpl</th>
-    <th>CO2_stdev</th>
-    <th>H2O_stdev</th>
-    <th>CO2_mean</th>
-    <th>H2O_mean</th>
-    <th>PAR_Den_Avg</th>
-    <th>PAR_Tot_Tot</th>
-    <th>amb_tmpr_Avg</th>
-    <th>RH_WXT</th>
-    <th>LWS_mV_Avg</th> -->
+    <% if (typeof variable == 'string' || variable instanceof String) { %>
+        <th><%= variable %></th>
+    <% } else {  %>
+        <% variable.forEach(function(name){ %>
+            <th><%= name %></th>
+        <%})%>
+    <% } %>
+    
   </tr>
     <% data.forEach(function(data){ %>
         <tr>
             
             <td><%- fulldate(data.year, data.day) %></td>
             <td><%= data.time %></td>
-            <% variable.forEach(function(name){%>
-                <% var tableData = data[name]%>
-                <td><%= tableData%></td>
-            <%})%>
-            
-            <!-- <td><%= data.Fc_wpl %></td>
-            <td><%= data.LE_wpl %></td>
-            <td><%= data.CO2_stdev %></td>
-            <td><%= data.H2O_stdev %></td>
-            <td><%= data.CO2_mean %></td>
-            <td><%= data.H2O_mean %></td>
-            <td><%= data.PAR_Den_Avg %></td>
-            <td><%= data.PAR_Tot_Tot %></td>
-            <td><%= data.amb_tmpr_Avg %></td>
-            <td><%= data.RH_WXT %></td>
-            <td><%= data.LWS_mV_Avg %></td> -->
+
+            <% if (typeof variable == 'string' || variable instanceof String) { %>
+                <td><%= data[variable] %></td>
+            <% } else {  %>
+                <% variable.forEach(function(name){%>
+                    <% var tableData = data[name]%>
+                    <td><%= tableData%></td>
+                <%})%>
+            <% } %>
+
         </tr>
     <% })%>
   
