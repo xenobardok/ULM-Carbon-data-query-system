@@ -3,7 +3,7 @@ var express = require('express'),
     mysql = require('mysql');
 
 const db = mysql.createConnection({
-    host: '10.48.14.247',
+    host: 'localhost',
     port: '3306',
     user: 'newuser',
     password: 'root',
@@ -46,6 +46,7 @@ app.get('/range', function(req,res){
 app.get('/data', function(req,res){
     if(req.query.date){
         let date = req.query.date.date;
+        console.log(date);
         let year = date.slice(-4);
         var d = daysCalc(year, date);
         console.log(req.query.date.varChoose);
@@ -60,7 +61,7 @@ app.get('/data', function(req,res){
     }
     else if(req.query.range){
         let q = req.query.range;
-        console.log(q);
+        // console.log(q);
         var y1 = q.begin.slice(-4);
         var y2 = q.end.slice(-4);
         var d1 = daysCalc(y1, q.begin);
@@ -68,14 +69,22 @@ app.get('/data', function(req,res){
         // console.log("year1:"+y1 +" year2:"+ y2+ " days1"+ d1+ " days2:"+ d2);
         
         if(y1===y2){
-            //let sql = "SELECT * FROM fluxdata WHERE year = " + mysql.escape(y1) + "AND day"
-            Flux.find({year:{$gte:y1, $lt: y2+1}, day: {$gte:d1, $lt: d2+1}}, function(err, data){
+            let sql = "SELECT * FROM fluxdata WHERE year = " + mysql.escape(y1) + " AND day BETWEEN " + d1 + " AND "+ d2+" ORDER BY year, day";
+            db.query(sql, function(err, data){
                 if(err){
                     console.log(err);
                 } else {
-                    res.render('data', {data:data});
+                    res.render('data', {data:data, variable:req.query.date.varChoose});
                 }
-            }).sort({day:1});
+            })
+
+            // Flux.find({year:{$gte:y1, $lt: y2+1}, day: {$gte:d1, $lt: d2+1}}, function(err, data){
+            //     if(err){
+            //         console.log(err);
+            //     } else {
+            //         res.render('data', {data:data});
+            //     }
+            // }).sort({day:1});
         }
         else if(y1<y2){
         Flux.find({
