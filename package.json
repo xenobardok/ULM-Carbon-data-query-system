@@ -6,6 +6,7 @@
   "dependencies": {
     "assert": "^1.4.1",
     "body-parser": "^1.17.2",
+    "csv-parse": "^2.0.0",
     "ejs": "^2.5.7",
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
