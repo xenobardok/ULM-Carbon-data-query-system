@@ -1,4 +1,4 @@
-const csvFilePath='1.csv';
+const csvFilePath='newUploads/1.csv';
 const csv=require('csvtojson')
 csv()
 .fromFile(csvFilePath)

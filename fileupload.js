@@ -2,7 +2,6 @@ var formidable = require('formidable'),
     http = require('http'),
     util = require('util'),
     fs = require("fs");
-var csvParser = require('csv-parse');
 http.createServer(function(req, res) {
   if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
     // parse a file upload

@@ -1,25 +1,10 @@
 var express = require('express'),
-    app = express(),
-    mysql = require('mysql');
+    app = express();
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    port: '3306',
-    user: 'newuser',
-    password: 'root',
-    database: 'fluxdatabase'
-});
 
-db.connect(function(err){
-    if(err){
-        throw err;
-    }
-    console.log('MySql Connected!!');
-})
+const db = require('./views/connection.js');
 
-// var port = 3000 || process.env.PORT,
-   var port = 80,
-    url = 'mongodb://test:test@ds125113.mlab.com:25113/fluxdatabase';
+   var port = 80;
 
 app.use('/assets', express.static(__dirname + '/public'));
 app.set('view engine', 'ejs');
