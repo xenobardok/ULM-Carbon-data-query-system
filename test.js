@@ -108,12 +108,6 @@ app.get('/data', function(req,res){
 
 });
 
-app.get('/upload', function(req, res){
-    
-    res.send("This is the upload route");
-});
-
-
 app.get('*', function(req,res){
     res.send('404 error!');
 });
@@ -123,7 +117,6 @@ app.listen(port, function(err){
         console.log("Server has started!");
     }
 })
-
 
 function daysCalc(year, fuldate){
     

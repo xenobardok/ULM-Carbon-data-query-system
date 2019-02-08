@@ -5,13 +5,13 @@
   "main": "app.js",
   "dependencies": {
     "assert": "^1.4.1",
-    "body-parser": "^1.17.2",
-    "csv-parse": "^2.0.0",
-    "ejs": "^2.5.7",
-    "express": "^4.15.3",
-    "mongodb": "^2.2.30",
-    "mongoose": "^4.11.4",
-    "mysql": "^2.15.0"
+    "body-parser": "^1.18.3",
+    "csv-parse": "^2.5.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongodb": "^2.2.36",
+    "mongoose": "^4.13.18",
+    "mysql": "^2.16.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,3 +1,6 @@
+CREATE database fluxdatabase;
+Use fluxdatabase;
+
 CREATE TABLE fluxdata(
 year INT NOT NULL,
 day INT NOT NULL,
