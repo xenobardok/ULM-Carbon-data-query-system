@@ -2,7 +2,6 @@ const express = require('express'),
     fileUpload = require('express-fileupload'),
     bodyParser = require('body-parser'),
     { convertCSVToArray } = require('convert-csv-to-array'),
-    converter = require('convert-csv-to-array'),
     fs = require('fs'),
     app = express();
     
@@ -74,37 +73,40 @@ app.get('/data', function(req,res){
                     res.render('data', {data:data, variable:req.query.range.varChoose});
                 }
             })
-
-            // Flux.find({year:{$gte:y1, $lt: y2+1}, day: {$gte:d1, $lt: d2+1}}, function(err, data){
-            //     if(err){
-            //         console.log(err);
-            //     } else {
-            //         res.render('data', {data:data});
-            //     }
-            // }).sort({day:1});
         }
         else if(y1<y2){
-            let sql = "SELECT * FROM fluxdata WHERE year >= "+ y1 + " AND day >= "+ d1 + " AND year <= "+ y2+ " AND day < "+ d2 +" ORDER BY year, day";
+            console.log(typeof y1);
+            console.log(y1+1);
+            console.log(y2);
+            if(y1+1<y2){
+                res.send("please choose a valid year range. Remember, you can only have a year difference of 1");
+            }
+            let sql = "SELECT * FROM fluxdata WHERE year >= "+ y1 + " AND day >= "+ d1 + " ORDER BY day";
+            let totalData = [];
+            console.log(sql);
             db.query(sql, function(err, data){
                 if(err){
                     console.log(err);
                 } else {
-                    res.render('data', {data:data, variable:req.query.range.varChoose});
+                    console.log(typeof data);
+                    totalData.push(data);
+                    // console.log(totalData);
+                    // console.log(totalData);
+                    sql = "SELECT * FROM fluxdata WHERE year <= "+ y2+ " AND day < "+ d2 +" ORDER BY day";
+                    console.log(sql);
+                    db.query(sql, function(err, data){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            totalData.push(data);
+                        }
+                    })
+
+                    res.render('data', {data:totalData, variable:req.query.range.varChoose});
                 }
             })
+            
         }
-        // Flux.find({
-        //     $or : [
-        //         { year: y1, day: {$gte: d1} },
-        //         { year: y2, day: {$lte: d2+1 } }
-        //     ]
-        // }, function(err, data){
-        //     if(err){
-        //         console.log(err);
-        //     } else {
-        //         res.render('data', {data:data});
-        //     }
-        // }).sort({year:1, day:1});
     
     }
     else {
@@ -125,13 +127,13 @@ app.get('/upload', function(req, res){
 app.post('/upload', function(req,res){
     const header = ['year', 'day', 'time', 'Hs', 'tau', 'u_star', 'Ts_stdev', 'Ts_Ux_cov', 'Ts_Uy_cov', 'Ts_Uz_cov', 'Ux_stdev', 'Ux_Uy_cov', 'Ux_Uz_cov', 'Uy_stdev', 'Uy_Uz_cov', 'Uz_stdev', 'wnd_spd', 'rslt_wnd_spd', 'wnd_dir_sonic', 'std_wnd_dir', 'wnd_dir_compass', 'Ux_Avg', 'Uy_Avg', 'Uz_Avg', 'Ts_Avg', 'sonic_azimuth', 'sonic_samples_Tot', 'no_sonic_head_Tot', 'no_new_sonic_data_Tot', 'amp_l_f_Tot', 'amp_h_f_Tot', 'sig_lck_f_Tot', 'del_T_f_Tot', 'aq_sig_f_Tot', 'sonic_cal_err_f_Tot', 'Fc_wpl', 'LE_wpl', 'Hc', 'CO2_stdev', 'CO2_Ux_cov', 'CO2_Uy_cov', 'CO2_Uz_cov', 'H2O_stdev', 'H2O_Ux_cov', 'H2O_Uy_cov', 'H2O_Uz_cov', 'Tc_stdev', 'Tc_Ux_cov', 'Tc_Uy_cov', 'Tc_Uz_cov', 'CO2_mean', 'H2O_mean', 'amb_tmpr_Avg', 'amb_press_mean', 'Tc_mean', 'rho_a_mean', 'Fc_irga', 'LE_irga', 'CO2_wpl_LE', 'CO2_wpl_H', 'H2O_wpl_LE', 'H2O_wpl_H', 'irga_samples_Tot', 'no_irga_head_Tot', 'no_new_irga_data_Tot', 'irga_bad_data_f_Tot', 'gen_sys_fault_f_Tot', 'sys_startup_f_Tot', 'motor_spd_f_Tot', 'tec_tmpr_f_Tot', 'src_pwr_f_Tot', 'src_tmpr_f_Tot', 'src_curr_f_Tot', 'irga_off_f_Tot', 'irga_sync_f_Tot', 'amb_tmpr_f_Tot', 'amb_press_f_Tot', 'CO2_I_f_Tot', 'CO2_Io_f_Tot', 'H2O_I_f_Tot', 'H2O_Io_f_Tot', 'CO2_Io_var_f_Tot', 'H2O_Io_var_f_Tot', 'CO2_sig_strgth_f_Tot', 'H2O_sig_strgth_f_Tot', 'CO2_sig_strgth_mean', 'H2O_sig_strgth_mean', 'T_tmpr_rh_mean', 'e_tmpr_rh_mean', 'e_sat_tmpr_rh_mean', 'H2O_tmpr_rh_mean', 'RH_tmpr_rh_mean', 'rho_a_tmpr_rh_mean', 'Rn_Avg', 'Rn_meas_Avg', 'Rain_TE525_Tot', 'LWS_mV_Avg', 'LWS_mV_Max', 'LWS_mV_Min', 'WetSeconds', 'WindSpd_WXT_mean', 'WindDir_WXT_mean', 'WindDir_WXT_StdDev', 'AirTemp_WXT_Avg', 'RH_WXT', 'AirPress_WXT', 'Rain_WXT_Tot', 'Hits_WXT_Tot', 'PAR_Den_Avg', 'PAR_Tot_Tot', 'panel_tmpr_Avg', 'batt_volt_Avg', 'slowsequence_Tot'];
     if (Object.keys(req.files).length == 0) {
-        return res.status(400).send('No files were uploaded.');
+        return res.status(400).render('info', {info:"No files were uploaded"});
     }
     let fluxFile = req.files.fluxFile;
     let filePath =__dirname+'\\newUploads\\'+fluxFile.name;
     fluxFile.mv(filePath, function(err){
         if(err)
-            return res.send(err);
+            res.render('info',{info:err});
     });
 
     fs.readFile(filePath, 'utf8', (err, data)=>{
@@ -140,33 +142,41 @@ app.post('/upload', function(req,res){
             type: 'array',
             separator: ',', // use the separator you use in your csv (e.g. '\t', ',', ';' ...)
         });
-        let single = resultArray[0];
-        // console.log(single);
-        let sql = "SELECT * from fluxdata where year="+single[0]+" AND day = " + single[1]+ " and time = "+ single[2];
-        console.log(sql);
-        db.query(sql, function(err, data){
-            if(err){
-                console.log(err);
-                res.send(err);
-            } else {
-                // console.log(data);
-                if(data.length>0){
-                    fs.unlink(filePath, (err) => {
-                        if (err) console.log(err);
-                        console.log(fluxFile.name + " was deleted");
-                    });
-                    res.status(400).send("Duplicate data found! Please add new data");
-                } else{
-                    sql = "INSERT INTO fluxdata VALUES ? ";
-                    console.log(resultArray[0].length);
-                    db.query(sql, [resultArray], (err, result) => {
-                        if (err) throw err;
-                        console.log("Number of records inserted: "+ result.affectedRows);
-                        res.send("Number of records inserted: "+ result.affectedRows);
-                    })
-                } 
-            }
-        })
+        try {
+            let single = resultArray[0];
+            // console.log(single);
+            let sql = "SELECT * from fluxdata where year="+single[0]+" AND day = " + single[1]+ " and time = "+ single[2];
+            console.log(sql);
+            db.query(sql, function(err, data){
+                if(err){
+                    console.log(err);
+                    res.send(err);
+                } else {
+                    // console.log(data);
+                    if(data.length>0){
+                        fs.unlink(filePath, (err) => {
+                            if (err) console.log(err);
+                        });
+                        res.status(400).render("info", {info:"Duplicate data found! Please add new data"});
+                    } else{
+                        sql = "INSERT INTO fluxdata VALUES ? ";
+                        // console.log(resultArray[0].length);
+                        db.query(sql, [resultArray], (err, result) => {
+                            if (err) 
+                                res.render('info', {info:"There is some error with the sql command, please contact the developer"});;
+                            console.log("Number of records inserted: "+ result.affectedRows);
+                            fs.unlink(filePath, (err) => {
+                                if (err) console.log(err);
+                            });
+                            res.render('info', {info: ("Number of records inserted: "+ result.affectedRows)});
+                        })
+                    } 
+                }
+            })
+        } catch (error) {
+            console.error(error);
+            res.render('info', {info:"There is some error with the file, make sure you are uploading a correctly formatted csv file"});
+        }
         
     });
 
