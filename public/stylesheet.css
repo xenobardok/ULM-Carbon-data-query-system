@@ -122,3 +122,7 @@ label{
     border-right: 2px solid #802b3d;
     border-bottom: 2px solid #802b3d;
 }
+
+/* input[type="file"] {
+    display: none;
+} */

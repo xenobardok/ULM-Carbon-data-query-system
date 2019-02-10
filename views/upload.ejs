@@ -4,13 +4,11 @@
         <div class="">
             <div class="Absolute-Center">
                 <div class="box">
-                        <h3>Please select your range</h3>
-                        <form action="/data" method="GET">
-                            <input type="text" class="datepicker" name="range[begin]" placeholder="Begin Date">
-                            <input type="text" class="datepicker" name="range[end]" placeholder="End Date">
-                            <% var rorq = "range" %>
-                            <p><% include ./partials/variable.ejs%></p><br>                            
-                            <input type="submit" value="Query" class="btn">
+                        <h3>Upload File</h3>
+                        <p>Please select your (.csv) file</p>
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="fluxFile" accept=".csv">
+                            <input type="submit" value="Submit" class="btn">
                         </form>
                 </div>
             </div>
