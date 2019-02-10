@@ -129,52 +129,46 @@ app.post('/upload', function(req,res){
     }
     let fluxFile = req.files.fluxFile;
     let filePath =__dirname+'\\newUploads\\'+fluxFile.name;
-    
-
     fluxFile.mv(filePath, function(err){
         if(err)
             return res.send(err);
-        else {
-            console.log('File moved to newUploads');
-            fs.readFile(filePath, 'utf-8', (err, data)=>{
-                console.log("File read, now converting to array");
-                console.log(data);
-                let resultArray = convertCSVToArray(data, {
-                    header: false,
-                    type: 'array',
-                    separator: ',', // use the separator you use in your csv (e.g. '\t', ',', ';' ...)
-                });
-                console.log("Converted, now checking for redundancy");
-                console.log(resultArray);
-                single = resultArray[0];
-                let sql = "SELECT * from fluxdata where year="+single[0]+" AND day = " + single[1]+ " and time = "+ single[2];
-                db.query(sql, function(err, data){
-                    if(err){
-                        console.log(err);
-                        res.send(err);
-                    } else {
-                        console.log(data);
-                        if(data == []){
-                            fs.unlink(filePath, (err) => {
-                                if (err) console.log(err);
-                                console.log(fluxFile.name + " was deleted");
-                            });
-                            res.status(400).send("Duplicate data found! Please add new data");
-                        } else{
-                            let sql = "INSERT INTO fluxdata VALUES ? ";
-                            db.query(sql, resultArray, (err, result) => {
-                                if (err) throw err;
-                                console.log("Number of records inserted: "+ result.affectedRows)
-                            })
-                              
-                        }
-                    }
-                })
-            });
-        }
     });
 
-    
+    fs.readFile(filePath, 'utf8', (err, data)=>{
+        // console.log(data);
+        const resultArray = convertCSVToArray(data, {
+            type: 'array',
+            separator: ',', // use the separator you use in your csv (e.g. '\t', ',', ';' ...)
+        });
+        let single = resultArray[0];
+        // console.log(single);
+        let sql = "SELECT * from fluxdata where year="+single[0]+" AND day = " + single[1]+ " and time = "+ single[2];
+        console.log(sql);
+        db.query(sql, function(err, data){
+            if(err){
+                console.log(err);
+                res.send(err);
+            } else {
+                // console.log(data);
+                if(data.length>0){
+                    fs.unlink(filePath, (err) => {
+                        if (err) console.log(err);
+                        console.log(fluxFile.name + " was deleted");
+                    });
+                    res.status(400).send("Duplicate data found! Please add new data");
+                } else{
+                    sql = "INSERT INTO fluxdata VALUES ? ";
+                    console.log(resultArray[0].length);
+                    db.query(sql, [resultArray], (err, result) => {
+                        if (err) throw err;
+                        console.log("Number of records inserted: "+ result.affectedRows);
+                        res.send("Number of records inserted: "+ result.affectedRows);
+                    })
+                } 
+            }
+        })
+        
+    });
 
 });
 
