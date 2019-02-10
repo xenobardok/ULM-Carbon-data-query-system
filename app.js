@@ -2,6 +2,7 @@ const express = require('express'),
     fileUpload = require('express-fileupload'),
     bodyParser = require('body-parser'),
     { convertCSVToArray } = require('convert-csv-to-array'),
+    ObjectsToCsv = require('objects-to-csv'),
     fs = require('fs'),
     app = express();
     
@@ -10,6 +11,7 @@ app.use(fileUpload({
     safeFileNames:true,
     preserveExtension:true
 }));
+let totalData;
 const db = require('./views/connection.js');
 
    var port = 80;
@@ -25,6 +27,8 @@ app.locals.fulldate = function(year, day) {
     return dat.toLocaleDateString("en-US");
 }
 
+
+
 app.get('/', function(req, res){
     let sql = ""
     res.render('index');
@@ -39,17 +43,19 @@ app.get('/range', function(req,res){
 });
 
 app.get('/data', function(req,res){
+    let totalData = new Object();
     if(req.query.date){
         let date = req.query.date.date;
         console.log(date);
         let year = date.slice(-4);
         var d = daysCalc(year, date);
-        console.log(req.query.date.varChoose);
+        // console.log(req.query.date.varChoose);
         let sql = "SELECT * FROM fluxdata WHERE day = ?";
         db.query(sql, d , function(err, data){
             if(err){
                 console.log(err);
             } else {
+                totalData = data;
                 res.render('data', {data: data, variable:req.query.date.varChoose});
             }
         })
@@ -70,39 +76,22 @@ app.get('/data', function(req,res){
                 if(err){
                     console.log(err);
                 } else {
+                    totalData = data;
                     res.render('data', {data:data, variable:req.query.range.varChoose});
                 }
             })
         }
-        else if(y1<y2){
-            console.log(typeof y1);
-            console.log(y1+1);
-            console.log(y2);
-            if(y1+1<y2){
+        else if(parseInt(y1)<parseInt(y2)){
+            if(parseInt(y1)+1<parseInt(y2)){
                 res.send("please choose a valid year range. Remember, you can only have a year difference of 1");
             }
-            let sql = "SELECT * FROM fluxdata WHERE year >= "+ y1 + " AND day >= "+ d1 + " ORDER BY day";
-            let totalData = [];
-            console.log(sql);
+            let sql = "select * from fluxdata where year>= "+ y1 +" and day >= "+d1 + " union select * from fluxdata where year<= "+ y2 +" and day <= " + d2 +" order by year,day";
             db.query(sql, function(err, data){
                 if(err){
                     console.log(err);
                 } else {
-                    console.log(typeof data);
-                    totalData.push(data);
-                    // console.log(totalData);
-                    // console.log(totalData);
-                    sql = "SELECT * FROM fluxdata WHERE year <= "+ y2+ " AND day < "+ d2 +" ORDER BY day";
-                    console.log(sql);
-                    db.query(sql, function(err, data){
-                        if(err){
-                            console.log(err);
-                        } else {
-                            totalData.push(data);
-                        }
-                    })
-
-                    res.render('data', {data:totalData, variable:req.query.range.varChoose});
+                    totalData=data;
+                    res.render('data', {data:data, variable:req.query.range.varChoose});
                 }
             })
             
@@ -110,13 +99,8 @@ app.get('/data', function(req,res){
     
     }
     else {
-    Flux.find({}, function(err, data){
-        if(err){
-            console.log(err);
-        } else {
-            res.render('data', {data: data});
-        }
-    })};
+        res.render('info', {info:"Something went wrong, please check your input"});
+    };
 
 });
 

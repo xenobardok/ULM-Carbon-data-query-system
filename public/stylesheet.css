@@ -23,10 +23,10 @@
     background-attachment: fixed;
 }
 ::selection {
-    background: #800029;; /* WebKit/Blink Browsers */
+    background: rgba(128,0,41,0.5);; /* WebKit/Blink Browsers */
   }
 ::-moz-selection {
-background: #800029;; /* Gecko Browsers */
+background: rgba(128,0,41,0.5);; /* Gecko Browsers */
 }
 .Center-Container {
     position: relative;
@@ -42,7 +42,7 @@ background: #800029;; /* Gecko Browsers */
   .box{
     text-align: center;
     background-color: rgba(128, 0, 43, 0.53);
-    border-radius: 5%;
+    border-radius: 5px;
     color: white;
     padding: 50px;
     width: 600px;
