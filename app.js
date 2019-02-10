@@ -11,7 +11,7 @@ app.use(fileUpload({
     safeFileNames:true,
     preserveExtension:true
 }));
-let totalData;
+let totalData = [];
 const db = require('./views/connection.js');
 
    var port = 80;
@@ -43,7 +43,7 @@ app.get('/range', function(req,res){
 });
 
 app.get('/data', function(req,res){
-    let totalData = new Object();
+    let totalData = [];
     if(req.query.date){
         let date = req.query.date.date;
         console.log(date);
@@ -55,7 +55,7 @@ app.get('/data', function(req,res){
             if(err){
                 console.log(err);
             } else {
-                totalData = data;
+                totalData.push(data);
                 res.render('data', {data: data, variable:req.query.date.varChoose});
             }
         })
@@ -76,7 +76,7 @@ app.get('/data', function(req,res){
                 if(err){
                     console.log(err);
                 } else {
-                    totalData = data;
+                    totalData.push(data);
                     res.render('data', {data:data, variable:req.query.range.varChoose});
                 }
             })
@@ -90,7 +90,7 @@ app.get('/data', function(req,res){
                 if(err){
                     console.log(err);
                 } else {
-                    totalData=data;
+                    totalData.push(data);
                     res.render('data', {data:data, variable:req.query.range.varChoose});
                 }
             })
@@ -165,6 +165,12 @@ app.post('/upload', function(req,res){
     });
 
 });
+
+app.get('/downloadCSV', function(req,res) {
+    console.log(totalData);
+    // new ObjectsToCsv(totalData).toDisk('./test.csv');
+});
+
 
 app.get('*', function(req,res){
     res.send('404 error!');

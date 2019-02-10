@@ -29,3 +29,5 @@ function toggle(source) {
     checkboxes[i].checked = source.checked;
   }
 }
+
+$(".table").first().table2csv()
