@@ -2,6 +2,8 @@
 
 This is a carbon query data system built by Sunil Jamkatel for Dr. Joydeep Bhattacharjee and his plant Ecology lab. 
 
+![Index Page](https://i.imgur.com/O70fQg8.jpg)
+
 ## Getting Started
 
 To get started with this, you would have to clone this repository in your disk. 
@@ -66,6 +68,22 @@ MySql Connected!!
 
 Choose the web browser of your choice and navigate to localhost.
 
+## Functionalities
+
+* Query data in a single day
+![Single Day Query](https://i.imgur.com/LVe6oDi.jpg)
+
+* Query a range of data in between different dates
+![Range Day Query](https://i.imgur.com/Muf5SoQ.jpg)
+
+* Choose only the data column you need
+![Range Day Query](https://i.imgur.com/WDJ2tIR.jpg)
+
+* Upload csv to the database
+![Upload CSV](https://i.imgur.com/bu05xjG.jpg)
+
+* Download custom queries as a csv file
+![Save CSV file](https://i.imgur.com/ayNAuXf.jpg)
 
 ## Built With
 
@@ -80,7 +98,7 @@ Please send me an email at [hello@suniljamkatel.me](mailto:hello@suniljamkatel.m
 
 * **Sunil Jamkatel** - *Initial work*
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/SunilJamkatel/ULM-Carbon-data-query-system/graphs/contributors) who participated in this project.
 
 ## License
 
