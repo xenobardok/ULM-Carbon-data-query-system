@@ -166,14 +166,9 @@ app.post('/upload', function(req,res){
 
 });
 
-app.get('/downloadCSV', function(req,res) {
-    console.log(totalData);
-    // new ObjectsToCsv(totalData).toDisk('./test.csv');
-});
-
 
 app.get('*', function(req,res){
-    res.send('404 error!');
+    res.render('info', {info: "Oh no! 404!"})
 });
 
 app.listen(port, function(err){
