@@ -8,9 +8,12 @@
                         <h3>Upload File</h3>
                         <p>Please select your (.csv) file</p>
                         <form action="/upload" method="POST" enctype="multipart/form-data">
-                            <input type="file" name="fluxFile" accept=".csv">
+                            <input type="file" name="fluxFile" accept=".csv"><br><br>
                             <input type="submit" value="Submit" class="btn">
+                            <input type="button" value="Go Back" onclick="history.back()" class="btn">
+
                         </form>
+
                 </div>
             </div>
                             

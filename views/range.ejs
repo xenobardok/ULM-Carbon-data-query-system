@@ -6,11 +6,12 @@
                 <div class="box">
                         <h3>Please select your range</h3>
                         <form action="/data" method="GET">
-                            <input type="text" class="datepicker" name="range[begin]" placeholder="Begin Date">
-                            <input type="text" class="datepicker" name="range[end]" placeholder="End Date">
+                            <input type="text" class="datepicker" name="range[begin]" placeholder="Begin Date" required="required"/>
+                            <input type="text" class="datepicker" name="range[end]" placeholder="End Date" required="required"/>
                             <% var rorq = "range" %>
                             <p><% include ./partials/variable.ejs%></p><br>                            
                             <input type="submit" value="Query" class="btn">
+                            <input type="button" value="Go Back" onclick="history.back()" class="btn">
                         </form>
                 </div>
             </div>
