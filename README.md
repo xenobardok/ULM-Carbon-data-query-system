@@ -73,12 +73,12 @@ Choose the web browser of your choice and navigate to localhost.
 
 ## Contributing
 
-Please send me an email at [mailto](mailto:hello@suniljamkatel.me) if you need additional help with setting up the app.
+Please send me an email at [hello@suniljamkatel.me](mailto:hello@suniljamkatel.me) if you need additional help with setting up the app.
 
 
 ## Authors
 
-* **Sunil Jamkatel** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Sunil Jamkatel** - *Initial work*
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
