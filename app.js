@@ -147,12 +147,15 @@ app.post('/upload', function(req,res){
                         // console.log(resultArray[0].length);
                         db.query(sql, [resultArray], (err, result) => {
                             if (err) 
-                                res.render('info', {info:"There is some error with the sql command, please contact the developer"});;
-                            console.log("Number of records inserted: "+ result.affectedRows);
-                            fs.unlink(filePath, (err) => {
-                                if (err) console.log(err);
-                            });
-                            res.render('info', {info: ("Number of records inserted: "+ result.affectedRows)});
+                                res.render('info', {info:"There is some error with the sql command, please contact the developer"});
+                            else{
+                                console.log("Number of records inserted: "+ result.affectedRows);
+                                fs.unlink(filePath, (err) => {
+                                    if (err) console.log(err);
+                                });
+                                console.log(result);
+                                res.render('info', {info: ("Number of records inserted: "+ result.affectedRows)});
+                            }
                         })
                     } 
                 }
